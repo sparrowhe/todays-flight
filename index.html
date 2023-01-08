@@ -7,6 +7,10 @@
     <body style="text-align: center;">
         <h1>今儿个飞哪里</h1>
         <h2 id="where">???-???</h2>
+        <input type="checkbox" id="firlimit">同情报区</input>
+        <br>
+        <input id="start" width="10px"></input> -> <input id="end" width="10px"></input>
+        <br>
         <button onclick="rand()">随一个</button>
     </body>
     <script>
@@ -270,6 +274,24 @@ ZYYJ
 ZYYK`.split('\n')
             let where=airports[Math.floor(Math.random()*airports.length)]
             let to=airports[Math.floor(Math.random()*airports.length)]
+            let need_limit = document.getElementById('firlimit').checked
+            let start = document.getElementById('start').value
+            let end = document.getElementById('end').value
+            if (start != '') {
+                while (where.slice(0, 2) != start) {
+                    where=airports[Math.floor(Math.random()*airports.length)]
+                }
+            }
+            if (end != '') {
+                while (to.slice(0, 2) != end) {
+                    to=airports[Math.floor(Math.random()*airports.length)]
+                }
+            }
+            if (need_limit) {
+                while (where.slice(0, 2) != to.slice(0, 2)) {
+                    to=airports[Math.floor(Math.random()*airports.length)]
+                }
+            }
             document.getElementById('where').innerText=`${where}-${to}`
         }
     </script>
