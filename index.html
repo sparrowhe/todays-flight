@@ -6,293 +6,99 @@
     </head>
     <body style="text-align: center;">
         <h1>今儿个飞哪里</h1>
-        <h2 id="where">???-???</h2>
-        <input type="checkbox" id="firlimit">同情报区</input>
+        <div><h2 id="origin">???</h2>To<h2 id="dest">???</div>
         <br>
-        <input id="start" width="10px"></input> -> <input id="end" width="10px"></input>
+        <input id="start" width="10px" placeholder="限定起始情报区"></input> -> <input id="end" width="10px" placeholder="限制目的情报区"></input>
         <br>
         <button onclick="rand()">随一个</button>
     </body>
     <script>
+            const FIRS = ['ZB','ZG','ZH','ZJ','ZL','ZP','ZS','ZU','ZW','ZY'];
+            const AIRPORTS_ZB = [
+                "ZBAA","ZBAD","ZBAL","ZBAR","ZBCD","ZBCF","ZBCZ","ZBDH",
+                "ZBDS","ZBDT","ZBEN","ZBER","ZBES","ZBHD","ZBHH","ZBHZ","ZBLA",
+                "ZBLF","ZBLL","ZBMZ","ZBOW","ZBSJ","ZBSN","ZBTJ","ZBTL","ZBUC",
+                "ZBUH","ZBUL","ZBXH","ZBXZ","ZBYC","ZBYN","ZBYZ","ZBZJ","ZBZL"
+            ];
+            const AIRPORTS_ZG = [
+                "ZGBH","ZGBS","ZGCD","ZGCJ","ZGCZ","ZGDY","ZGGG","ZGHA","ZGHC","ZGHY",
+                "ZGHZ","ZGKL","ZGLD","ZGLG","ZGMX","ZGNN","ZGOW","ZGSD","ZGSG",
+                "ZGSY","ZGSZ","ZGUH","ZGWZ","ZGYJ","ZGYL","ZGYY","ZGZH","ZGZJ"
+            ];
+            const AIRPORTS_ZH = [
+                "ZHCC","ZHES","ZHHH","ZHJZ","ZHLY","ZHNY","ZHSN","ZHSY","ZHXF","ZHXY","ZHYC"
+            ];
+            const AIRPORTS_ZJ = [
+                "ZJHK","ZJQH","ZJSY","ZJYX"
+            ];
+            const AIRPORTS_ZL = [
+                "ZLAK","ZLDH","ZLDL","ZLGL","ZLGM","ZLGY",
+                "ZLHB","ZLHX","ZLHZ","ZLIC","ZLJC","ZLJQ","ZLLL","ZLLN","ZLQY",
+                "ZLTS","ZLXH","ZLXN","ZLXY","ZLYA","ZLYL","ZLYS","ZLZW","ZLZY"
+            ];
+            const AIRPORTS_ZP = [
+                "ZPBS","ZPCW","ZPDL","ZPDQ","ZPJH",
+                "ZPJM","ZPLC","ZPLJ","ZPMS","ZPNL",
+                "ZPPP","ZPSM","ZPTC","ZPWS","ZPZT"
+            ];
+            const AIRPORTS_ZS = [
+                "ZSAM","ZSAQ","ZSCG","ZSCN","ZSDY","ZSFY","ZSFZ","ZSGS","ZSGZ","ZSHC","ZSHZ","ZSJD",
+                "ZSJG","ZSJH","ZSJJ","ZSJN","ZSJU","ZSLG","ZSLO","ZSLQ","ZSLY","ZSNB","ZSNJ","ZSNT",
+                "ZSOF","ZSPD","ZSQD","ZSQZ","ZSRZ","ZSSH","ZSSL","ZSSM","ZSSR","ZSSS","ZSTX","ZSWA",
+                "ZSWF","ZSWH","ZSWX","ZSWY","ZSWZ","ZSXZ","ZSYA","ZSYC","ZSYN","ZSYT","ZSYW","ZSZS"
+            ];
+            const AIRPORTS_ZU = [
+                "ZUAL","ZUAS","ZUBD","ZUBJ","ZUBZ","ZUCK","ZUDC","ZUDX","ZUGH","ZUGU","ZUGY",
+                "ZUGZ","ZUHY","ZUJZ","ZUKD","ZUKJ","ZULB","ZULS","ZULZ","ZUMT","ZUMY",
+                "ZUNC","ZUNP","ZUNZ","ZUPS","ZUQJ","ZURK","ZUSN","ZUTF","ZUTR","ZUUU",
+                "ZUWL","ZUWS","ZUWX","ZUSH","ZUXC","ZUXJ","ZUYB","ZUYI","ZUZH","ZUZY"
+            ];
+            const AIRPORTS_ZW = [
+                "ZWAK","ZWAT","ZWBL","ZWCM","ZWFY","ZWHM",
+                "ZWHZ","ZWKC","ZWKL","ZWKM","ZWKN","ZWNL","ZWRQ","ZWSC","ZWSH",
+                "ZWTC","ZWTL","ZWTN","ZWTS","ZWWW","ZWAL","ZWTK","ZWYN","ZWYT"
+            ];
+            const AIRPORTS_ZY = [
+                "ZYAS","ZYBA","ZYBS",
+                "ZYCC","ZYCH","ZYCY","ZYDD","ZYDQ","ZYDU","ZYFY","ZYHB",
+                "ZYHE","ZYJD","ZYJM","ZYJS","ZYJX","ZYJZ","ZYLD","ZYMD",
+                "ZYMH","ZYQQ","ZYSQ","ZYTL","ZYTN","ZYTX","ZYYJ","ZYYK"
+            ];
+            const AIRPORTS = {
+                "ZB":AIRPORTS_ZB,
+                "ZG":AIRPORTS_ZG,
+                "ZH":AIRPORTS_ZH,
+                "ZJ":AIRPORTS_ZJ,
+                "ZL":AIRPORTS_ZL,
+                "ZP":AIRPORTS_ZP,
+                "ZS":AIRPORTS_ZS,
+                "ZU":AIRPORTS_ZU,
+                "ZW":AIRPORTS_ZW,
+                "ZY":AIRPORTS_ZY
+            }
         function rand() {
-            let airports=`ZBAA
-ZBAD
-ZBAL
-ZBAR
-ZBCD
-ZBCF
-ZBCZ
-ZBDH
-ZBDS
-ZBDT
-ZBEN
-ZBER
-ZBES
-ZBHD
-ZBHH
-ZBHZ
-ZBLA
-ZBLF
-ZBLL
-ZBMZ
-ZBOW
-ZBSJ
-ZBSN
-ZBTJ
-ZBTL
-ZBUC
-ZBUH
-ZBUL
-ZBXH
-ZBXZ
-ZBYC
-ZBYN
-ZBYZ
-ZBZJ
-ZBZL
-ZGBH
-ZGBS
-ZGCD
-ZGCJ
-ZGCZ
-ZGDY
-ZGGG
-ZGHA
-ZGHC
-ZGHY
-ZGHZ
-ZGKL
-ZGLD
-ZGLG
-ZGMX
-ZGNN
-ZGOW
-ZGSD
-ZGSG
-ZGSY
-ZGSZ
-ZGUH
-ZGWZ
-ZGYJ
-ZGYL
-ZGYY
-ZGZH
-ZGZJ
-ZHCC
-ZHES
-ZHHH
-ZHJZ
-ZHLY
-ZHNY
-ZHSN
-ZHSY
-ZHXF
-ZHXY
-ZHYC
-ZJHK
-ZJQH
-ZJSY
-ZJYX
-ZLAK
-ZLDH
-ZLDL
-ZLGL
-ZLGM
-ZLGY
-ZLHB
-ZLHX
-ZLHZ
-ZLIC
-ZLJC
-ZLJQ
-ZLLL
-ZLLN
-ZLQY
-ZLTS
-ZLXH
-ZLXN
-ZLXY
-ZLYA
-ZLYL
-ZLYS
-ZLZW
-ZLZY
-ZPBS
-ZPCW
-ZPDL
-ZPDQ
-ZPJH
-ZPJM
-ZPLC
-ZPLJ
-ZPMS
-ZPNL
-ZPPP
-ZPSM
-ZPTC
-ZPWS
-ZPZT
-ZSAM
-ZSAQ
-ZSCG
-ZSCN
-ZSDY
-ZSFY
-ZSFZ
-ZSGS
-ZSGZ
-ZSHC
-ZSHZ
-ZSJD
-ZSJG
-ZSJH
-ZSJJ
-ZSJN
-ZSJU
-ZSLG
-ZSLO
-ZSLQ
-ZSLY
-ZSNB
-ZSNJ
-ZSNT
-ZSOF
-ZSPD
-ZSQD
-ZSQZ
-ZSRZ
-ZSSH
-ZSSL
-ZSSM
-ZSSR
-ZSSS
-ZSTX
-ZSWA
-ZSWF
-ZSWH
-ZSWX
-ZSWY
-ZSWZ
-ZSXZ
-ZSYA
-ZSYC
-ZSYN
-ZSYT
-ZSYW
-ZSZS
-ZUAL
-ZUAS
-ZUBD
-ZUBJ
-ZUBZ
-ZUCK
-ZUDC
-ZUDX
-ZUGH
-ZUGU
-ZUGY
-ZUGZ
-ZUHY
-ZUJZ
-ZUKD
-ZUKJ
-ZULB
-ZULS
-ZULZ
-ZUMT
-ZUMY
-ZUNC
-ZUNP
-ZUNZ
-ZUPS
-ZUQJ
-ZURK
-ZUSN
-ZUTF
-ZUTR
-ZUUU
-ZUWL
-ZUWS
-ZUWX
-ZUSH
-ZUXC
-ZUXJ
-ZUYB
-ZUYI
-ZUZH
-ZUZY
-ZWAK
-ZWAT
-ZWBL
-ZWCM
-ZWFY
-ZWHM
-ZWHZ
-ZWKC
-ZWKL
-ZWKM
-ZWKN
-ZWNL
-ZWRQ
-ZWSC
-ZWSH
-ZWTC
-ZWTL
-ZWTN
-ZWTS
-ZWWW
-ZWAL
-ZWTK
-ZWYN
-ZWYT
-ZYAS
-ZYBA
-ZYBS
-ZYCC
-ZYCH
-ZYCY
-ZYDD
-ZYDQ
-ZYDU
-ZYFY
-ZYHB
-ZYHE
-ZYJD
-ZYJM
-ZYJS
-ZYJX
-ZYJZ
-ZYLD
-ZYMD
-ZYMH
-ZYQQ
-ZYSQ
-ZYTL
-ZYTN
-ZYTX
-ZYYJ
-ZYYK`.split('\n')
-            let where=airports[Math.floor(Math.random()*airports.length)]
-            let to=airports[Math.floor(Math.random()*airports.length)]
-            let need_limit = document.getElementById('firlimit').checked
-            let start = document.getElementById('start').value
-            let end = document.getElementById('end').value
-            if (start != '') {
-                while (where.slice(0, 2) != start) {
-                    where=airports[Math.floor(Math.random()*airports.length)]
-                }
+            const DEST_FIR = document.getElementById('start').value.toUpperCase();
+            const ORIGIN = document.getElementById('origin');
+            const DEST = document.getElementById('dest');
+            const ORIGIN_FIR = document.getElementById('start').value.toUpperCase();
+            try {
+                ORIGIN.innerText = GetRandomAp(ORIGIN_FIR);
+                
+            } catch {
+                ORIGIN.innerText = GetRandomAp(GetRandomItem(FIRS));
+                
             }
-            if (end != '') {
-                while (to.slice(0, 2) != end) {
-                    to=airports[Math.floor(Math.random()*airports.length)]
-                }
+            try {
+                DEST.innerText = GetRandomAp(DEST_FIR);
+            } catch {
+                DEST.innerText = GetRandomAp(GetRandomItem(FIRS));
             }
-            if (need_limit) {
-                while (where.slice(0, 2) != to.slice(0, 2)) {
-                    to=airports[Math.floor(Math.random()*airports.length)]
-                }
-            }
-            document.getElementById('where').innerText=`${where}-${to}`
+        }
+        function GetRandomAp(FIR) {
+            return GetRandomItem(AIRPORTS[FIR]);
+        }
+        function GetRandomItem(array) {
+            return array[Math.floor(Math.random()*array.length)];
         }
     </script>
 </html>
